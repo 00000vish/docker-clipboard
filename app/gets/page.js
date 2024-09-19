@@ -1,31 +1,17 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { getPastes, deleteItem, getItem } from "@/lib/backend";
+import { getPastes, deletePaste } from "@/lib/backend";
+
+import Paste from "@/components/paste";
 import Link from "next/link";
 
 export default function GetPastes() {
 	const [pasteValues, setPasteValues] = useState([]);
 
-	async function onDelete(id) {
-		deleteItem(id);
-
-		await onUseEffect();
-	}
-
-	async function onCopy(id) {
-		var text = await getItem(id);
-
-		const type = "text/plain";
-		const blob = new Blob([text], { type });
-		const data = [new ClipboardItem({ [type]: blob })];
-
-		await navigator.clipboard.write(data);
-	}
-
 	async function onUseEffect() {
 		var pastes = await getPastes();
-		
+
 		setPasteValues(pastes);
 	}
 
@@ -49,36 +35,17 @@ export default function GetPastes() {
 						)}
 					</div>
 					<div className="col d-flex justify-content-end">
-						<Link type="button"
-							href="/set"
-							className="btn btn-success rounded me-2">
-							<i className="bi bi-plus-circle-fill"></i>
+						<Link href="/set"
+							className="btn btn-primary rounded ms-2">
+							<i className="bi bi-clipboard-plus"></i>
 						</Link>
 					</div>
 				</div>
 			</div>
 			{
 				pasteValues.map(x => (
-					<div className="card mb-1" key={x.id}>
-						<div className="card-body">
-							<textarea className="form-control" disabled rows={1} value={x.data} />
-						</div>
-						<div className="card-footer text-body-secondary">
-							<div className="row g-0">
-								<div className="col">
-									<button className="btn btn-outline-danger ms-1"
-										onClick={() => onDelete(x.id)}>
-										<i className="bi bi-trash-fill"></i>
-									</button>
-								</div>
-								<div className="col d-flex justify-content-end">
-									<button className="btn btn-primary"
-										onClick={() => onCopy(x.id)}>
-										<i className="bi bi-clipboard-check-fill"></i>
-									</button>
-								</div>
-							</div>
-						</div>
+					<div className="mb-1" key={x.id}>
+						<Paste data={x}/>
 					</div>
 				))
 			}
