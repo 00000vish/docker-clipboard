@@ -24,4 +24,4 @@ services:
 
 # Screenshot
 
-![Screenshot](https://github.com/00000vish/docker-whats-my-ip/assets/11762008/8c549f64-ada4-435c-944a-29e55038d228)
+![Screenshot](https://github.com/user-attachments/assets/553b0a4f-4a05-47c9-9b69-85acdfb4674d)
