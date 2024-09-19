@@ -4,10 +4,15 @@ ARG PORT=3000
 ENV PORT=${PORT}
 
 WORKDIR /server
-COPY public ./public
-COPY package.json ./package.json
-COPY server.js ./server.js
+
+COPY ./app ./app
+COPY ./components ./components
+COPY ./lib ./lib
+COPY ./jsconfig.json ./jsconfig.json
+COPY ./next.config.mjs ./next.config.mjs
+COPY ./package.json ./package.json
+COPY ./start.sh ./start.sh
 
 RUN npm install
 
-CMD ["npm", "run" ,"server"]
+CMD ["./start.sh"]

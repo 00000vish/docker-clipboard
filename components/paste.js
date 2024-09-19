@@ -11,9 +11,9 @@ export default function Paste(props) {
     const [isEncrypted, isEetEncrypted] = useState(false);
 
     async function onDelete() {
-        deletePaste(item.id);
+        await deletePaste(item.id);
 
-        await onUseEffect();
+        location.reload()
     }
 
     async function onIsEncrypted() {
